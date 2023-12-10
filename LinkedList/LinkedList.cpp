@@ -78,6 +78,42 @@ public:
         temp->next = current;
     }
 
+    //delete node at position
+    void deleteNode(int position)
+    {
+        Node* current = head;
+        Node* pre = current;
+
+        for (int i = 0; i < position + 1; i++)
+        {
+            //beginning
+            if (i == position && current == head)
+            {
+                head = head->next;
+                break;
+            }
+            else
+            {
+                //end
+                if (current == tail)
+                {
+                    pre->next = NULL;
+                    tail = pre;
+                    break;
+                }
+                //at position
+                else if (i == position)
+                {
+                    pre->next = current->next;
+                    break;
+                }
+            }
+            //move current node
+            pre = current;
+            current = current->next;
+        }
+    }
+
     //print out the list starting at the head
     void printList()
     {
@@ -95,11 +131,17 @@ public:
 
 int main()
 {
+    //setup linked list
     LinkedList list;
     list.insertToEndNode(1);
     list.insertToEndNode(5);
     list.pushNode(2);
     list.insertPositionNode(1, 7);
+    list.printList();
+
+    //test deletion
+    cout << "\n";
+    list.deleteNode(1);
     list.printList();
     return 0;
 }
